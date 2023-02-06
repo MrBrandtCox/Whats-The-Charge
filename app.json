@@ -4,10 +4,10 @@
     "slug": "Plumb",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/ios/SewerMain@2x.jpg",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/ios/SewerIMG.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
