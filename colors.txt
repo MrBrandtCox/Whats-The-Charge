@@ -1,0 +1,7 @@
+grey #F5F1ED
+
+blue #114B5F
+
+Light Green #315C2B
+
+backgroundColor #181F1C
