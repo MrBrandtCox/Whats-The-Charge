@@ -21,7 +21,7 @@ function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:"#181F1C"}}>
       <View style={{flexDirection: "column", justifyContent: "space-between", alignItems: "center"}}>
-      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 50, fontFamily: "Helvetica", fontWeight: 'bold', bottom: 100}}>Select Service</Text>
+      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 50, fontFamily: "Helvetica", fontWeight: 'bold', bottom: 100}}>Southern Sewer Services</Text>
       <View style={{height: 3, width: "60%", backgroundColor: "#315C2B", position: "absolute", bottom: 375}}></View>
       
       
@@ -406,7 +406,6 @@ function CalcScreen({ navigation }) {
   );
 }
 
-
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -416,7 +415,8 @@ function App() {
       <Stack.Screen
   name="Home"
   component={HomeScreen}
-  options={{ title: 'Southern Sewer Services',  
+  options={{headerShown: false,
+     title: 'Southern Sewer Services',  
   headerStyle:{
     backgroundColor: "white"
   },
@@ -430,9 +430,9 @@ function App() {
 />
 <Stack.Screen name="Sewer" component={Sewer} options={{ title: 'Sewer',  
   headerStyle:{
-    backgroundColor: "white"
+    backgroundColor: "#315C2B"
   },
-  headerTintColor: 'black',
+  headerTintColor: 'white',
   headerTitleStyle: {
             fontFamily: 'Helvetica',
             fontWeight: 'bold',
@@ -441,9 +441,9 @@ function App() {
   }}/>
 <Stack.Screen name="InteriorWater" component={InteriorWater} options={{ title: 'Interior Water',  
   headerStyle:{
-    backgroundColor: "white"
+    backgroundColor: "#315C2B"
   },
-  headerTintColor: 'black',
+  headerTintColor: 'white',
   headerTitleStyle: {
             fontFamily: 'Helvetica',
             fontWeight: 'bold',
@@ -455,9 +455,9 @@ name="ExteriorWater"
 component={ExteriorWater} 
 options={{ title: 'Exterior Water',  
 headerStyle:{
-backgroundColor: "white"
+backgroundColor: "#315C2B"
 },
-headerTintColor: 'black',
+headerTintColor: 'white',
 headerTitleStyle: {
 fontFamily: 'Helvetica',
 fontWeight: 'bold',
@@ -471,7 +471,7 @@ component={CalcScreen}
 options={{ 
 title: 'Calculation',  
 headerStyle:{
-backgroundColor: "white"
+backgroundColor: "#315C2B"
 },
 headerTintColor: 'black',
 headerTitleStyle: {
