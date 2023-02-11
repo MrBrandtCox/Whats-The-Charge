@@ -100,12 +100,91 @@ function HomeScreen({ navigation }) {
   );
 }
 function Sewer({navigation}) { 
+  // Question 1 logic (days * $1000)
+  const [totSewDay, mathSewDay] = useState('');
+  const [sewDays, sDays] = useState();
+  
+  function sewDayInput(x) {
+    //  if (x !== Number) {
+    //   EventTarget.style={color: red,};
+    //  } else {
+      sDays(x)
+      mathSewDay(x * 1000);
+      mathSewPeople(sewPeople * 250 * x)
+  };
+  
+
+  // Question 2 logic (people * 250 * days)
+  const [totSewPeople, mathSewPeople] = useState('');
+  const [sewPeople, sPeople] = useState();
+  function sewPeopleInput(x) {
+    //  if (x !== Number) {
+    //   EventTarget.style={color: red,};
+    //  } else {
+      sPeople(x)
+      mathSewPeople(x * 250 * sewDays); // This sewDays will not update unless the people needed is Reentered !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  };
+
+  // Question 3 logic (x<3, $75)(3<x<5, $150)(x>5, $450)
+  const [totSewFeet, mathSewFeet] = useState('');
+  function sewFeetInput(x) {
+    //  if (x !== Number) {
+    //   EventTarget.style={color: red,};
+    //  } else {
+      if (x < 3){
+        mathSewFeet(x * 75);
+      } else if (x >= 3, x <= 5) {
+        mathSewFeet(x * 150);
+      } else if (x > 5) {
+        mathSewFeet(x * 450);
+      }
+  };
+
+  // Question 4 logic (if yes than sewDays * $750)
+  const [totSewTrac, mathSewTrac] = useState(false);
+  function sewTracInput(x) {
+    //  if (x !== Number) {
+    //   EventTarget.style={color: red,};
+    //  } else {
+      if (x == true) {
+        let x = false
+        mathSewTrac(750 * sewDays);
+      } else if (x == false){
+        let x = true
+        mathSewTrac(0);
+      }
+  };
+
+  // Question 5 logic (if yes the flat rate to move a cabinent is $500)
+  const [totSewCab, mathSewCab] = useState(false);
+  function sewCabInput(x) {
+    //  if (x !== Number) {
+    //   EventTarget.style={color: red,};
+    //  } else {
+      if (x == true) {
+        mathSewCab(500);
+      } else {
+        mathSewCab(0);
+      }
+
+  };
+
+  // Question 6 logic (Feet of Concrete multiply by $250)
+  const [totSewConc, mathSewConc] = useState('');
+  function sewConcInput(x) {
+    //  if (x !== Number) {
+    //   EventTarget.style={color: red,};
+    //  } else {
+      mathSewConc(x * 250);
+  };
+  
+  // Question 1
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-evenly', backgroundColor:"#181F1C", alignContent: "center"}}>
       <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'space-evenly',}}>
       <View style={{justifyContent: 'center',flexDirection: "row", alignItems: 'flex-start',}}>
-        <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> Days to complete:</Text>
-        <TextInput inputMode='numeric' keyboardType='number-pad' maxLength="3" onSubmitEditing={{}} placeholder="Enter Number" style={{textAlignVertical: "center",textAlign: "center",backgroundColor: "white",      
+        <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> Days to complete: Math {totSewDay}</Text>
+        <TextInput inputMode='numeric' keyboardType='ascii-capable-number-pad' maxLength="3" onChangeText={sewDayInput} placeholder="Enter Number" style={{textAlignVertical: "center",textAlign: "center",backgroundColor: "white",      
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,
           borderBottomLeftRadius: 10,
@@ -118,10 +197,10 @@ function Sewer({navigation}) {
           }}>
           </TextInput>
       </View> 
-
+      {/* Question 2 */}
       <View style={{justifyContent: 'center', flexDirection: "row",}}>
-      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> People needed on the job:</Text>
-        <TextInput inputMode='numeric' maxLength="3" onSubmitEditing={{}} placeholder="Enter Number" style={{textAlignVertical: "center",textAlign: "center",backgroundColor: "white",      
+      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> People needed on the job: Math {totSewPeople}</Text>
+        <TextInput inputMode='numeric' keyboardType='number-pad' maxLength="3" onChangeText={sewPeopleInput} placeholder="Enter Number" style={{textAlignVertical: "center",textAlign: "center",backgroundColor: "white",      
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,
           borderBottomLeftRadius: 10,
@@ -134,10 +213,10 @@ function Sewer({navigation}) {
           }}>
           </TextInput>
       </View>
-      
+      {/* Question 3 */}
       <View style={{justifyContent: 'center', flexDirection: "row"}}>
-      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> How many feet deep:</Text>
-        <TextInput inputMode='numeric' keyboardType='number-pad' maxLength="3" onSubmitEditing={{}} placeholder="Enter Number" style={{textAlignVertical: "center",textAlign: "center",backgroundColor: "white",      
+      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> How many feet deep: Math {totSewFeet}</Text>
+        <TextInput inputMode='numeric' keyboardType='number-pad' maxLength="3" onChangeText={sewFeetInput} placeholder="Enter Number" style={{textAlignVertical: "center",textAlign: "center",backgroundColor: "white",      
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,
           borderBottomLeftRadius: 10,
@@ -150,10 +229,33 @@ function Sewer({navigation}) {
           }}>
           </TextInput>
       </View>
-      
+      {/* Question 4 */}
       <View style={{justifyContent: 'center', flexDirection: "column", alignItems: "flex-start"}}>
       <View style={{flexDirection: "row", justifyContent: "center"}}>
-      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> Tractor Needed:</Text>
+      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> Tractor Needed: Math {totSewTrac ? 'yes':'no'}</Text>
+      <TouchableOpacity style={{height: 50, width: 100, backgroundColor: "#315C2B", borderWidth: 3,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        borderColor: "black",
+        shadowColor: "black",
+        shadowOffset: {width: 2, height: 7},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        bottom: 25,
+        left: 25,
+        }}>
+          <MyCheckbox
+            status = {totSewTrac}
+            onPress = {sewTracInput} />
+        </TouchableOpacity>
+      </View>
+      </View>
+      {/* Question 5 */}
+      <View style={{justifyContent: 'center', flexDirection: "column", alignItems: "flex-start"}}>
+      <View style={{flexDirection: "row", justifyContent: "center"}}>
+      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> Do cabinents need to be moved: Math {totSewCab}</Text>
       <TouchableOpacity style={{height: 50, width: 100, backgroundColor: "#315C2B", borderWidth: 3,
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,
@@ -171,31 +273,10 @@ function Sewer({navigation}) {
           </TouchableOpacity>
       </View>
       </View>
-      
-      <View style={{justifyContent: 'center', flexDirection: "column", alignItems: "flex-start"}}>
-      <View style={{flexDirection: "row", justifyContent: "center"}}>
-      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> Do cabinents need to be moved:</Text>
-      <TouchableOpacity style={{height: 50, width: 100, backgroundColor: "#315C2B", borderWidth: 3,
-          borderTopLeftRadius: 10,
-          borderTopRightRadius: 10,
-          borderBottomLeftRadius: 10,
-          borderBottomRightRadius: 10,
-          borderColor: "black",
-          shadowColor: "black",
-          shadowOffset: {width: 2, height: 7},
-          shadowOpacity: 0.2,
-          shadowRadius: 3,
-          bottom: 25,
-          left: 25,
-          }}>
-             <MyCheckbox />
-          </TouchableOpacity>
-      </View>
-      </View>
-
+      {/* Question 6 */}
       <View style={{justifyContent: 'center', flexDirection: "row"}}>
-      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> How many feet of concrete:</Text>
-        <TextInput inputMode='numeric' keyboardType='number-pad' maxLength="3" onSubmitEditing={{}} placeholder="Enter Number" style={{textAlignVertical: "center",textAlign: "center",backgroundColor: "white",      
+      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> How many feet of concrete: Math {totSewConc}</Text>
+        <TextInput inputMode='numeric' keyboardType='number-pad' maxLength="3" onChangeText={sewConcInput} placeholder="Enter Number" style={{textAlignVertical: "center",textAlign: "center",backgroundColor: "white",      
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,
           borderBottomLeftRadius: 10,
@@ -208,6 +289,7 @@ function Sewer({navigation}) {
           }}>
           </TextInput>
       </View>
+      {/* Calculate Button */}
       <View style={{alignItems: 'center', justifyContent: 'space-evenly', flexDirection: "row"}}>
       <TouchableOpacity onPress={() => navigation.navigate('Calculation')} style={{height: 50, width: 400, backgroundColor: "#315C2B", borderWidth: 3,
           borderTopLeftRadius: 10,
@@ -223,7 +305,6 @@ function Sewer({navigation}) {
           }}>
             <Text style={{textAlignVertical: "center",textAlign: "center", color: "white", fontSize: 40, fontFamily: "Helvetica", fontWeight: 'light',}}>Calculate</Text>
       </TouchableOpacity>
-
       </View>
       </View>
     </View>
