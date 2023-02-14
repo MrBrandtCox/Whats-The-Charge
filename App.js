@@ -167,7 +167,7 @@ function Sewer({navigation}) {
   // This is for Calculating to the calc page.
   const [totalSewer, calcSewer] = useState('');
   function sewCalculate() {
-    var sewTotal = (totSewDay + totSewPeople + totSewFeet + totSewCab + totSewConc);
+    var sewTotal = (totSewDay + totSewPeople + totSewFeet + totSewConc);
     var sewTrac;
     var sewCab;
     
@@ -244,6 +244,7 @@ function Sewer({navigation}) {
       <View style={{flexDirection: "row", justifyContent: "center"}}>
       <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> Tractor Needed: Math {totSewTrac ? "yes" : "no" }{totSewTrac}</Text>
       <Switch 
+        style ={{transform:[{ scaleX:1.5 }, { scaleY: 1.5}], bottom: 15, left: 30, }}
         trackColor={{false: '#767577', true: '#f4f3f4'}}
         thumbColor={totSewTrac ? '#315C2B' : '#f4f3f4'}
         ios_backgroundColor="#3e3e3e"
@@ -256,8 +257,9 @@ function Sewer({navigation}) {
       {/* Question 5 */}
       <View style={{justifyContent: 'center', flexDirection: "column", alignItems: "flex-start"}}>
       <View style={{flexDirection: "row", justifyContent: "center"}}>
-      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> Do cabinents need to be moved: Math {totSewCab}</Text>
-      <Switch 
+      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> Do cabinents need to be moved {totSewCab ? "yes" : "no"}</Text>
+      <Switch
+      style ={{transform:[{ scaleX: 1.5 }, { scaleY: 1.5 }], bottom: 15, left: 30, }} 
         trackColor={{false: '#767577', true: '#f4f3f4'}}
         thumbColor={totSewCab ? '#315C2B' : '#f4f3f4'}
         ios_backgroundColor="#3e3e3e"
@@ -268,7 +270,7 @@ function Sewer({navigation}) {
       </View>
       {/* Question 6 */}
       <View style={{justifyContent: 'center', flexDirection: "row"}}>
-      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> How many feet of concrete: Math {totSewConc}</Text>
+      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> How many feet of concrete {totSewConc}</Text>
         <TextInput inputMode='numeric' keyboardType='number-pad' maxLength="3" onChangeText={sewConcInput} placeholder="Enter Number" style={{textAlignVertical: "center",textAlign: "center",backgroundColor: "white",      
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,
