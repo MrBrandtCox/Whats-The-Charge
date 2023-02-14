@@ -5,7 +5,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from "@expo/vector-icons";
 
+var Answer;
 
 function MyCheckbox() {
   const [checked, setChecked] = useState(false);
@@ -99,11 +101,11 @@ function HomeScreen({ navigation }) {
     </View>
   );
 }
-function Sewer({navigation}) { 
+function Sewer({navigation}) {
   // Question 1 logic (days * $1000)
   const [totSewDay, mathSewDay] = useState('');
   const [sewDays, sDays] = useState();
-  
+
   function sewDayInput(x) {
     //  if (x !== Number) {
     //   EventTarget.style={color: red,};
@@ -142,32 +144,16 @@ function Sewer({navigation}) {
 
   // Question 4 logic (if yes than sewDays * $750)
   const [totSewTrac, mathSewTrac] = useState(false);
-  function sewTracInput(x) {
-    //  if (x !== Number) {
-    //   EventTarget.style={color: red,};
-    //  } else {
-      if (x == true) {
-        let x = false
-        mathSewTrac(750 * sewDays);
-      } else if (x == false){
-        let x = true
-        mathSewTrac(0);
-      }
-  };
+  const sewTracToggle = () => mathSewTrac(previousState => !previousState)
+  
+  // function sewTracInput() {
+  //   //  if (x !== Number) {
+  //   //   EventTarget.style={color: red,};
+  //   //  } else {}
 
   // Question 5 logic (if yes the flat rate to move a cabinent is $500)
   const [totSewCab, mathSewCab] = useState(false);
-  function sewCabInput(x) {
-    //  if (x !== Number) {
-    //   EventTarget.style={color: red,};
-    //  } else {
-      if (x == true) {
-        mathSewCab(500);
-      } else {
-        mathSewCab(0);
-      }
-
-  };
+  const sewCabToggle = () => mathSewCab(previousState => !previousState)
 
   // Question 6 logic (Feet of Concrete multiply by $250)
   const [totSewConc, mathSewConc] = useState('');
@@ -178,6 +164,30 @@ function Sewer({navigation}) {
       mathSewConc(x * 250);
   };
   
+  // This is for Calculating to the calc page.
+  const [totalSewer, calcSewer] = useState('');
+  function sewCalculate() {
+    var sewTotal = (totSewDay + totSewPeople + totSewFeet + totSewCab + totSewConc);
+    var sewTrac;
+    var sewCab;
+    
+    if (totSewTrac === true) {
+      sewTrac = (750 * sewDays);
+    } else {
+      sewTrac = 0; // This will add 1 when Cabinets is selected.... and if it is not selected it will add 0... !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    };
+
+    if (totSewCab === true) {
+      sewCab = 500;
+    } else {
+      sewCab = 0;
+    };
+    
+    calcSewer(sewTotal + sewTrac + sewCab);
+  }
+
+  Answer = totalSewer;
+
   // Question 1
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-evenly', backgroundColor:"#181F1C", alignContent: "center"}}>
@@ -232,45 +242,28 @@ function Sewer({navigation}) {
       {/* Question 4 */}
       <View style={{justifyContent: 'center', flexDirection: "column", alignItems: "flex-start"}}>
       <View style={{flexDirection: "row", justifyContent: "center"}}>
-      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> Tractor Needed: Math {totSewTrac ? 'yes':'no'}</Text>
-      <TouchableOpacity style={{height: 50, width: 100, backgroundColor: "#315C2B", borderWidth: 3,
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        borderColor: "black",
-        shadowColor: "black",
-        shadowOffset: {width: 2, height: 7},
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
-        bottom: 25,
-        left: 25,
-        }}>
-          <MyCheckbox
-            status = {totSewTrac}
-            onPress = {sewTracInput} />
-        </TouchableOpacity>
+      <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> Tractor Needed: Math {totSewTrac ? "yes" : "no" }{totSewTrac}</Text>
+      <Switch 
+        trackColor={{false: '#767577', true: '#f4f3f4'}}
+        thumbColor={totSewTrac ? '#315C2B' : '#f4f3f4'}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={sewTracToggle}
+        value={totSewTrac}
+      />
+          {/* <MyCheckbox /> */}
       </View>
       </View>
       {/* Question 5 */}
       <View style={{justifyContent: 'center', flexDirection: "column", alignItems: "flex-start"}}>
       <View style={{flexDirection: "row", justifyContent: "center"}}>
       <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> Do cabinents need to be moved: Math {totSewCab}</Text>
-      <TouchableOpacity style={{height: 50, width: 100, backgroundColor: "#315C2B", borderWidth: 3,
-          borderTopLeftRadius: 10,
-          borderTopRightRadius: 10,
-          borderBottomLeftRadius: 10,
-          borderBottomRightRadius: 10,
-          borderColor: "black",
-          shadowColor: "black",
-          shadowOffset: {width: 2, height: 7},
-          shadowOpacity: 0.2,
-          shadowRadius: 3,
-          bottom: 25,
-          left: 25,
-          }}>
-             <MyCheckbox />
-          </TouchableOpacity>
+      <Switch 
+        trackColor={{false: '#767577', true: '#f4f3f4'}}
+        thumbColor={totSewCab ? '#315C2B' : '#f4f3f4'}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={sewCabToggle}
+        value={totSewCab}
+      />
       </View>
       </View>
       {/* Question 6 */}
@@ -291,7 +284,12 @@ function Sewer({navigation}) {
       </View>
       {/* Calculate Button */}
       <View style={{alignItems: 'center', justifyContent: 'space-evenly', flexDirection: "row"}}>
-      <TouchableOpacity onPress={() => navigation.navigate('Calculation')} style={{height: 50, width: 400, backgroundColor: "#315C2B", borderWidth: 3,
+
+          {/* Remove when done testing */}
+      <Text style={{textAlignVertical: "center",textAlign: "center", color: "white", fontSize: 40, fontFamily: "Helvetica", fontWeight: 'light', marginLeft: 20,}}>{totalSewer}</Text>
+
+
+      <TouchableOpacity onPressIn={sewCalculate} onPress={() => navigation.navigate('Calculation')} style={{height: 50, width: 400, backgroundColor: "#315C2B", borderWidth: 3,
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,
           borderBottomLeftRadius: 10,
@@ -313,6 +311,10 @@ function Sewer({navigation}) {
   
 }
 function ExteriorWater({ navigation }) {
+  // Write function here
+
+  Answer = "Ext";
+
   return (
 
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-evenly', backgroundColor:"#181F1C", alignContent: "center"}}>
@@ -390,6 +392,10 @@ function ExteriorWater({ navigation }) {
   );
 }
 function InteriorWater({ navigation }) {
+// Write function here
+
+  Answer = "Int";
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-evenly', backgroundColor:"#181F1C", alignContent: "center"}}>
       <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'space-evenly',}}>
@@ -424,7 +430,7 @@ function InteriorWater({ navigation }) {
           }}>
           </TextInput>
       </View>
-  
+
       <View style={{justifyContent: 'center', flexDirection: "column", alignItems: "flex-start"}}>
       <View style={{flexDirection: "row", justifyContent: "center"}}>
       <Text style={{textAlignVertical: "center",textAlign: "center", color: "#fff", fontSize: 45, fontFamily: "Helvetica", fontWeight: 'light', bottom: 30}}> Is the Home Raised at Least 2ft:</Text>
@@ -441,7 +447,7 @@ function InteriorWater({ navigation }) {
           bottom: 25,
           left: 25,
           }}>
-             <MyCheckbox />
+             <MyCheckbox /> 
           </TouchableOpacity>
       </View>
       </View>
@@ -465,10 +471,15 @@ function InteriorWater({ navigation }) {
     </View>
   );
 }
+
 function CalcScreen({ navigation }) {
+  // const [totalSewer, calcSewer] = useState('');
+  // const [totalExterior, calcExterior] = useState('');
+  // const [totalInterior, calcInterior] = useState('');
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-evenly', backgroundColor:"#181F1C", alignContent: "center"}}>
          <View style={{alignItems: 'center', justifyContent: 'space-evenly', flexDirection: "row"}}>
+         <Text style={{textAlignVertical: "center",textAlign: "center", color: "white", fontSize: 40, fontFamily: "Helvetica", fontWeight: 'light',}}>Total Price {Answer}</Text>
       <TouchableOpacity onPress={() => navigation.navigate('Home')} style={{height: 50, width: 400, backgroundColor: "#315C2B", borderWidth: 3,
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,
@@ -570,6 +581,7 @@ headerShown: false
     </NavigationContainer>
   );
 }
+
 export default App;
 
 const styles = StyleSheet.create({
