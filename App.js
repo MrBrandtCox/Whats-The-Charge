@@ -48,9 +48,9 @@ function Sewer({navigation}) {
   const [sewDays, sDays] = useState();
 
   function sewDayInput(x) {
-      sDays(x);
-      mathSewDay(x * 1000);
-      mathSewPeople(sewPeople * 250 * x);
+    sDays(x);
+    mathSewDay(x * 1000);
+    mathSewPeople(sewPeople * 250 * x);
   };
   
 
@@ -58,20 +58,23 @@ function Sewer({navigation}) {
   const [totSewPeople, mathSewPeople] = useState('');
   const [sewPeople, sPeople] = useState();
   function sewPeopleInput(x) {
-      sPeople(x);
-      mathSewPeople(x * 250 * sewDays);
+    sPeople(x);
+    mathSewPeople(x * 250 * sewDays);
   };
 
   // Question 3 logic (x<3, $75)(3<x<5, $150)(x>5, $450)
   const [totSewFeet, mathSewFeet] = useState('');
+  const [sewFeet, sFeet] = useState();
   function sewFeetInput(x) {
-      if (x < 3){
-        mathSewFeet(x * 75);
-      } else if (x >= 3, x <= 5) {
-        mathSewFeet(x * 150);
-      } else if (x > 5) {
-        mathSewFeet(x * 450);
-      };
+    sFeet(x);
+
+    if (x < 3){
+      mathSewFeet(x * 75);
+    } else if (x >= 3, x <= 5) {
+      mathSewFeet(x * 150);
+    } else if (x > 5) {
+      mathSewFeet(x * 450);
+    };
   };
 
   // Question 4 logic (if yes than sewDays * $750)
@@ -84,8 +87,10 @@ function Sewer({navigation}) {
 
   // Question 6 logic (Feet of Concrete multiply by $250)
   const [totSewConc, mathSewConc] = useState('');
+  const [sewConc, sConc] = useState();
   function sewConcInput(x) {
-      mathSewConc(x * 250);
+    sConc(x);
+    mathSewConc(x * 250);
   };
   
   // This is for Calculating to the calc page.
@@ -111,32 +116,74 @@ function Sewer({navigation}) {
   };
 
   Answer = totalSewer;
+  
+  // Validate Inputs First before going to next screen!
+  const nextScreen = () => {
+    navigation.navigate('Calculation');
+  };
+  
+  const validInput = RegExp('^[0-9]+$');
+
+  const [errorDay, setErrorDay] = useState('');
+  const [errorPeople, setErrorPeople] = useState('');
+  const [errorFeet, setErrorFeet] = useState('');
+  const [errorConc, setErrorConc] = useState('');
+
+  function validate() {
+    if (validInput.test(sewDays) === false) {
+      setErrorDay('X');
+    }
+    if (validInput.test(sewPeople) === false) {
+      setErrorPeople('X');
+    }
+    if (validInput.test(sewFeet) === false) {
+      setErrorFeet('X');
+    }
+    if (validInput.test(sewConc) === false) {
+      setErrorConc('X');
+    }
+    if (validInput.test(sewDays) === true 
+        && validInput.test(sewPeople) === true 
+        && validInput.test(sewFeet) === true 
+        && validInput.test(sewConc) === true) {
+          nextScreen();
+    }
+  };
 
   // Question 1
   return (
     <View style={[styles.screenView]}>
       <View style={[styles.screenViewTwo]}>
       <View style={{justifyContent: 'center',flexDirection: "row", alignItems: 'flex-start',}}>
-        <Text style={[styles.questionText]}> Days to complete:</Text>
+        <Text style={[styles.questionText]}>Days to complete:</Text>
         <TextInput inputMode='numeric' keyboardType='number-pad' maxLength="3" onChangeText={sewDayInput} placeholder="Enter Number" style={[styles.questionInput]}>
           </TextInput>
+
+          <Text style={[styles.questionError]} >{errorDay}</Text>
+          
       </View> 
       {/* Question 2 */}
       <View style={{justifyContent: 'center', flexDirection: "row",}}>
-      <Text style={[styles.questionText]}> People needed on the job:</Text>
+      <Text style={[styles.questionText]}>People needed on the job:</Text>
         <TextInput inputMode='numeric' keyboardType='number-pad' maxLength="3" onChangeText={sewPeopleInput} placeholder="Enter Number" style={[styles.questionInput]}>
           </TextInput>
+          
+          <Text style={[styles.questionError]} >{errorPeople}</Text>
+          
       </View>
       {/* Question 3 */}
       <View style={{justifyContent: 'center', flexDirection: "row"}}>
-      <Text style={[styles.questionText]}> How many feet deep:</Text>
+      <Text style={[styles.questionText]}>How many feet deep:</Text>
         <TextInput inputMode='numeric' keyboardType='number-pad' maxLength="3" onChangeText={sewFeetInput} placeholder="Enter Number" style={[styles.questionInput]}>
           </TextInput>
+          
+          <Text style={[styles.questionError]} >{errorFeet}</Text>
+          
       </View>
       {/* Question 4 */}
       <View style={{justifyContent: 'center', flexDirection: "column", alignItems: "flex-start"}}>
       <View style={{flexDirection: "row", justifyContent: "center"}}>
-      <Text style={[styles.questionText]}> Tractor Needed:</Text>
+      <Text style={[styles.questionText]}>Tractor Needed:</Text>
       <Switch 
         style ={[styles.switchStyle]}
         trackColor={{false: '#767577', true: '#f4f3f4'}}
@@ -150,7 +197,7 @@ function Sewer({navigation}) {
       {/* Question 5 */}
       <View style={{justifyContent: 'center', flexDirection: "column", alignItems: "flex-start"}}>
       <View style={{flexDirection: "row", justifyContent: "center"}}>
-      <Text style={[styles.questionText]}> Do cabinents need to be moved:</Text>
+      <Text style={[styles.questionText]}>Do cabinents need to be moved:</Text>
       <Switch
         style ={[styles.switchStyle]} 
         trackColor={{false: '#767577', true: '#f4f3f4'}}
@@ -163,13 +210,16 @@ function Sewer({navigation}) {
       </View>
       {/* Question 6 */}
       <View style={{justifyContent: 'center', flexDirection: "row"}}>
-      <Text style={[styles.questionText]}> How many feet of concrete:</Text>
+      <Text style={[styles.questionText]}>How many feet of concrete:</Text>
         <TextInput inputMode='numeric' keyboardType='number-pad' maxLength="3" onChangeText={sewConcInput} placeholder="Enter Number" style={[styles.questionInput]}>
           </TextInput>
+          
+          <Text style={[styles.questionError]} >{errorConc}</Text>
+          
       </View>
       {/* Calculate Button */}
       <View style={[styles.calculateView]}>
-      <TouchableOpacity onPressIn={sewCalculate} onPress={() => navigation.navigate('Calculation')} style={[styles.calculateLabel]}>
+      <TouchableOpacity onPressIn={sewCalculate} onPress={validate} style={[styles.calculateLabel]}>
             <Text style={[styles.calculateText]}>Calculate</Text>
       </TouchableOpacity>
       </View>
@@ -544,6 +594,17 @@ const styles = StyleSheet.create({
     left: 25,
     height: 50,
     width: 100,
+  },
+  questionError : {
+    textAlignVertical: "center",
+    textAlign: "center",
+    color: "#fff",
+    fontSize: 45,
+    fontFamily: "Helvetica",
+    fontWeight: 'light',
+    bottom: 30,
+    color:'red',
+    left:40,
   },
   switchStyle: {
     transform: [{ scaleX:1.5}, {scaleY: 1.5}],
