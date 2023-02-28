@@ -10,8 +10,6 @@
     "splash": {
       "image": "./assets/ios/SewerIMG.png",
       "resizeMode": "contain",
-      "height": "224",
-      "width": "224",
       "backgroundColor": "#ffffff"
     },
     "updates": {
