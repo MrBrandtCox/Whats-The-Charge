@@ -1,14 +1,17 @@
 {
   "expo": {
-    "name": "Plumb",
-    "slug": "Plumb",
+    "name": "SSS",
+    "slug": "sss",
+    "description": "This is app is for Southern Sewer Services",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/ios/SewerMain@2x.jpg",
+    "icon": "./assets/ios/SewerMain@2x.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/ios/SewerIMG.jpg",
+      "image": "./assets/ios/SewerIMG.png",
       "resizeMode": "contain",
+      "height": "224",
+      "width": "224",
       "backgroundColor": "#ffffff"
     },
     "updates": {
