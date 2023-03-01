@@ -1,13 +1,14 @@
 {
   "expo": {
-    "name": "Plumb",
-    "slug": "Plumb",
+    "name": "SSS",
+    "slug": "sss",
+    "description": "This is app is for Southern Sewer Services",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/ios/SewerMain@2x.jpg",
+    "icon": "./assets/ios/SewerMain@2x.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/ios/SewerIMG.jpg",
+      "image": "./assets/ios/SewIMG.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,16 +19,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bradenkim.sss"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.bradenkim.sss"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "adf2c7a5-121f-44ef-84b9-f6a67d48e4f8"
+      }
     }
   }
 }
