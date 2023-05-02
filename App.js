@@ -73,7 +73,7 @@ function Sewer({navigation}) {
     };
   };
 
-  // Question 3.5 logic (x<3, $75)(3<x<5, $150)(x>5, $450)
+  // Question 3.5 logic
   const [totSewFeet, mathSewFeet] = useState('');
   const [sewFeet, sFeet] = useState();
   function sewFeetInput(x) {
