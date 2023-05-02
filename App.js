@@ -55,22 +55,33 @@ function Sewer({navigation}) {
     }
   };
 
-  // Question 3 logic (x<3, $75)(3<x<5, $150)(x>5, $450)
+  // Question 3 logic (x=<3, $75)(3<x=<5, $150)(x>5, $450)
+  const [totSewDepth, mathSewDepth] = useState('');
+  const [sewDepth, sDepth] = useState();
+  function sewDepthInput(x) {
+    sDepth(x);
+    if (validInput.test(x) === true){
+      setErrorDepth('');
+    }; 
+
+    if (x <= 3){
+      mathSewDepth(75);
+    } else if (x > 3, x <= 5) {
+      mathSewDepth(150);
+    } else if (x > 5) {
+      mathSewDepth(450);
+    };
+  };
+
+  // Question 3.5 logic
   const [totSewFeet, mathSewFeet] = useState('');
   const [sewFeet, sFeet] = useState();
   function sewFeetInput(x) {
     sFeet(x);
     if (validInput.test(x) === true){
       setErrorFeet('');
-    }; 
-
-    if (x < 3){
-      mathSewFeet(x * 75);
-    } else if (x >= 3, x <= 5) {
-      mathSewFeet(x * 150);
-    } else if (x > 5) {
-      mathSewFeet(x * 450);
     };
+    mathSewFeet(x * totSewDepth);
   };
 
   // Question 4 logic (if yes than sewDays * $750)
@@ -125,6 +136,7 @@ function Sewer({navigation}) {
 
   const [errorDay, setErrorDay] = useState('');
   const [errorPeople, setErrorPeople] = useState('');
+  const [errorDepth, setErrorDepth] = useState('');
   const [errorFeet, setErrorFeet] = useState('');
   const [errorConc, setErrorConc] = useState('');
 
@@ -135,6 +147,9 @@ function Sewer({navigation}) {
     if (validInput.test(sewPeople) === false) {
       setErrorPeople('X');
     }
+    if (validInput.test(sewDepth) === false) {
+      setErrorDepth('X');
+    }
     if (validInput.test(sewFeet) === false) {
       setErrorFeet('X');
     }
@@ -143,6 +158,7 @@ function Sewer({navigation}) {
     }
     if (validInput.test(sewDays) === true 
       && validInput.test(sewPeople) === true 
+      && validInput.test(sewDepth) === true
       && validInput.test(sewFeet) === true 
       && validInput.test(sewConc) === true) {
         nextScreen();
@@ -170,6 +186,17 @@ function Sewer({navigation}) {
           <TextInput inputMode='numeric' keyboardType='number-pad' maxLength="3" onChangeText={sewPeopleInput} placeholder="Enter Number" style={[styles.questionInput]}>
           </TextInput>
           <Text style={[styles.questionError]}>{errorPeople}</Text>  
+        </View>
+
+
+
+        {/* Question 3, Create 3 different Options to choose only 1 (RadioButton?) */}
+
+        <View style={[styles.questionView]}>
+          <Text style={[styles.questionText]}>What's the Depth:</Text>
+          <TextInput inputMode='numeric' keyboardType='number-pad' maxLength="3" onChangeText={sewDepthInput} placeholder="Enter Number" style={[styles.questionInput]}>
+          </TextInput>
+          <Text style={[styles.questionError]}>{errorDepth}</Text>
         </View>
 
         <View style={[styles.questionView]}>
